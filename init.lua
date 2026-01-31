@@ -29,6 +29,8 @@ require("config.vimsheet")
 -- Claude workflow features (always loaded)
 require("config.claude-context")
 require("config.claude-diff")
+require("config.claude-send")
+require("config.claude-actions")
 
 -- Optional features (controlled by lua/user/features.lua)
 -- Run install.sh to configure, or manually create lua/user/features.lua

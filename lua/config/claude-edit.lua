@@ -17,8 +17,23 @@ local help_content = [[
 │                                                         │
 │  Claude Terminal                                        │
 │    <leader>ct      Toggle Claude terminal               │
+│    <leader>cR      Restart Claude terminal              │
 │    <esc><esc>      Exit terminal mode (scroll/copy)     │
 │    i               Re-enter terminal mode               │
+│                                                         │
+│  Context & Communication                                │
+│    <leader>cc      Copy buffer/selection for Claude     │
+│    <leader>cs      Send buffer/selection to Claude      │
+│    <leader>ce      Copy diagnostics for Claude          │
+│    <leader>cC      Copy all open buffers                │
+│                                                         │
+│  Quick Actions                                          │
+│    <leader>cA      Accept changes (save)                │
+│    <leader>cr      Revert changes                       │
+│    <leader>cp      Preview changes (diff)               │
+│    <leader>cd      Diff unsaved changes                 │
+│    <leader>cD      Diff against git HEAD                │
+│    <leader>cu      Undo tree                            │
 │                                                         │
 │  Git Integration                                        │
 │    <leader>gg      LazyGit (floating)                   │
@@ -38,7 +53,7 @@ function M.show_help()
   vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
 
   local width = 60
-  local height = 20
+  local height = 38
   local win = vim.api.nvim_open_win(buf, true, {
     relative = 'editor',
     width = width,
@@ -96,12 +111,38 @@ function M.setup_terminal_keymaps()
   end, { buffer = buf, desc = 'Open file under cursor' })
 end
 
+-- Restart Claude terminal
+function M.restart_claude()
+  if M.claude_bufnr and vim.api.nvim_buf_is_valid(M.claude_bufnr) then
+    local chan = vim.bo[M.claude_bufnr].channel
+    if chan then
+      vim.fn.jobstop(chan)
+    end
+    vim.api.nvim_buf_delete(M.claude_bufnr, { force = true })
+  end
+
+  M.claude_bufnr = nil
+  M.claude_winnr = nil
+  M.setup()
+  vim.notify("Claude terminal restarted", vim.log.levels.INFO)
+end
+
 -- Status line component showing Claude connection
 function M.statusline()
-  if M.claude_bufnr and vim.api.nvim_buf_is_valid(M.claude_bufnr) then
-    return "󰚩 Claude"
+  if not M.claude_bufnr then
+    return ""
   end
-  return ""
+
+  if not vim.api.nvim_buf_is_valid(M.claude_bufnr) then
+    return "󰚩 Claude (dead)"
+  end
+
+  local chan = vim.bo[M.claude_bufnr].channel
+  if not chan or vim.fn.jobwait({ chan }, 0)[1] ~= -1 then
+    return "󰚩 Claude (exited)"
+  end
+
+  return "󰚩 Claude"
 end
 
 function M.setup()
@@ -130,6 +171,7 @@ function M.setup()
   local opts = { noremap = true, silent = true }
   vim.keymap.set('n', '<leader>ct', M.toggle_claude, vim.tbl_extend('force', opts, { desc = 'Toggle Claude terminal' }))
   vim.keymap.set('n', '<leader>ch', M.show_help, vim.tbl_extend('force', opts, { desc = 'Claude-edit help' }))
+  vim.keymap.set('n', '<leader>cR', M.restart_claude, vim.tbl_extend('force', opts, { desc = 'Restart Claude terminal' }))
 
   -- Auto-enter insert mode when entering Claude terminal
   vim.api.nvim_create_autocmd('BufEnter', {

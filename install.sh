@@ -197,6 +197,38 @@ else
   echo "  Install Claude: https://docs.anthropic.com/en/docs/claude-code"
 fi
 
+# Shell function auto-install (only if claude-edit was enabled)
+if [[ "$enable_claude_edit" == "true" ]]; then
+  echo ""
+  echo -n "Add 'ce' shell function to your profile? [y/N] "
+  read -r response
+  if [[ "$response" =~ ^[Yy]$ ]]; then
+    if [[ "$SHELL" == *"zsh"* ]]; then
+      profile_file="$HOME/.zshrc"
+    else
+      profile_file="$HOME/.bashrc"
+    fi
+
+    if [[ -f "$profile_file" ]] && ! grep -q "# Claude-edit:" "$profile_file"; then
+      cat >> "$profile_file" << 'SHELL_FUNC'
+
+# Claude-edit: open file with Claude in split pane
+ce() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: ce <file>"
+    return 1
+  fi
+  CLAUDE_EDIT_CMD="claude" nvim "$1" -c 'lua require("config.claude-edit").setup()'
+}
+SHELL_FUNC
+      success "Added 'ce' function to $profile_file"
+      echo "  Run 'source $profile_file' to activate"
+    else
+      info "Shell function already installed or profile not found"
+    fi
+  fi
+fi
+
 echo ""
 
 # Now Playing (macOS only)

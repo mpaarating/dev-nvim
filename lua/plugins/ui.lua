@@ -182,6 +182,16 @@ return {
           { "filename", path = 1, symbols = { modified = " ●", readonly = " ", unnamed = "[No Name]" } },
         },
         lualine_x = {
+          {
+            function()
+              local ok, claude = pcall(require, "config.claude-edit")
+              return ok and claude.statusline() or ""
+            end,
+            cond = function()
+              local ok, claude = pcall(require, "config.claude-edit")
+              return ok and claude.claude_bufnr ~= nil
+            end,
+          },
           { "diagnostics", sources = { "nvim_diagnostic" }, symbols = { error = " ", warn = " ", info = " ", hint = "󰌵 " } },
           "encoding",
           "filetype",

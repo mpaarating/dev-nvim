@@ -149,6 +149,18 @@ return {
     end,
   },
 
+  -- Undo tree visualization
+  {
+    "mbbill/undotree",
+    keys = {
+      { "<leader>cu", "<cmd>UndotreeToggle<cr>", desc = "Undo tree" },
+    },
+    config = function()
+      vim.g.undotree_WindowLayout = 2
+      vim.g.undotree_SetFocusWhenToggle = 1
+    end,
+  },
+
   -- Better diagnostics list and more
   {
     "folke/trouble.nvim",

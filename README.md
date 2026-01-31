@@ -54,8 +54,13 @@ For the ultimate experience, use the `ce` (claude-edit) command to open a file w
 ce src/myfile.ts
 ```
 
+<p align="center">
+  <img src="docs/screenshots/demo-send-to-claude.gif" alt="Send to Claude Demo" width="700">
+</p>
+
 | Key | Action |
 |-----|--------|
+| `<Space>cs` | Send selection to Claude |
 | `<C-h>` | Focus editor (left pane) |
 | `<C-l>` | Focus Claude (right pane) |
 | `<Space>ct` | Toggle Claude pane |
@@ -154,6 +159,7 @@ Press `<Space>?` for the interactive cheatsheet. Here are the essentials:
 | `<Space>/` | Live grep |
 | `<Space>gg` | Open LazyGit |
 | `<Space>cc` | Copy for AI (with file:line) |
+| `<Space>cs` | Send selection to Claude |
 | `<Space>cd` | Diff unsaved changes |
 | `<Space>cD` | Diff against git HEAD |
 | `gd` | Go to definition |
