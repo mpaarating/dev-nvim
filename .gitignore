@@ -1,0 +1,19 @@
+# User customizations (personal config, not shared)
+lua/user/*
+!lua/user/.gitkeep
+
+# Test artifacts
+test/
+
+# Neovim
+.netrwhist
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

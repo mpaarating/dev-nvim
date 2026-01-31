@@ -1,0 +1,9 @@
+# Pre-commit hooks for dev-nvim
+# Setup: brew install pre-commit gitleaks && pre-commit install
+
+repos:
+  # Secret detection - prevents accidental credential commits
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.0
+    hooks:
+      - id: gitleaks
