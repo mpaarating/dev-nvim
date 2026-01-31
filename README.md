@@ -12,7 +12,7 @@ Built for developers who work with AI coding assistants like Claude Code. Featur
 ## Quick Start
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/mpaarating/dev-nvim/main/install.sh)
+curl -fsSL https://raw.githubusercontent.com/mpaarating/dev-nvim/main/install.sh | bash
 ```
 
 Or clone and run locally:
