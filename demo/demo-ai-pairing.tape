@@ -1,8 +1,8 @@
 # dev-nvim AI Pair Programming Demo
 # Shows the complete workflow of collaborating with AI coding assistants
+# using the `ce` (claude-edit) command for split-pane development.
 #
-# Story: You're working with Claude Code. It edits your files directly.
-# dev-nvim makes this seamless with auto-reload, diffs, and context copying.
+# REQUIRES: Claude CLI installed, `ce` function in shell profile
 
 Output ../docs/screenshots/demo-ai-pairing.gif
 Output ../docs/screenshots/demo-ai-pairing.webm
@@ -15,122 +15,92 @@ Set Padding 20
 Set TypingSpeed 35ms
 
 # ============================================
-# SCENE 1: You're coding, want to ask AI for help
+# SETUP: Source shell profile for ce command
 # ============================================
+Type "source ~/.zshrc"
+Enter
+Sleep 500ms
 Type "cd ~/Code/personal/dev-nvim"
 Enter
 Sleep 500ms
-Type "nvim lua/config/options.lua"
-Enter
-Sleep 2s
 
-# Select code to share with Claude
+# ============================================
+# SCENE 1: Launch claude-edit split pane
+# ============================================
+Type "# claude-edit: Neovim + Claude Code side by side"
+Enter
+Sleep 1s
+
+Type "ce lua/config/options.lua"
+Enter
+Sleep 5s
+
+# ============================================
+# SCENE 2: Navigate between panes
+# ============================================
+# Focus editor (left)
+Ctrl+h
+Sleep 1s
+
+# Focus Claude (right)
+Ctrl+l
+Sleep 1s
+
+# Back to editor
+Ctrl+h
+Sleep 500ms
+
+# ============================================
+# SCENE 3: Select code and copy for AI
+# ============================================
 Type "gg"
 Sleep 300ms
 Type "V"
 Sleep 200ms
-Type "20j"
+Type "15j"
 Sleep 500ms
 
-# Copy with file path + line numbers (formatted for AI)
+# Copy with file path + line numbers
 Type " cc"
 Sleep 2s
 Escape
 Sleep 1s
 
 # ============================================
-# SCENE 2: Claude edits your file externally
+# SCENE 4: Ask Claude a question
 # ============================================
-# Background nvim, simulate Claude editing the file
-Ctrl+z
+# Focus Claude pane
+Ctrl+l
 Sleep 500ms
 
-Type "# Claude Code edits your file..."
-Enter
-Sleep 500ms
-Type "echo '-- Added by Claude: improved performance' >> lua/config/options.lua"
-Enter
+Type "Add a comment explaining what these options do"
 Sleep 1s
-
-# Return to nvim
-Type "fg"
 Enter
-Sleep 1.5s
+Sleep 6s
 
 # ============================================
-# SCENE 3: File auto-reloads! (no annoying prompt)
+# SCENE 5: Switch back and see changes
 # ============================================
-# Go to end to see the new line
-Type "G"
-Sleep 1s
+Ctrl+h
+Sleep 2s
 
-# ============================================
-# SCENE 4: Review what Claude changed
-# ============================================
-# Diff against git HEAD to see all AI changes
+# Show diff of what Claude changed
 Type " cD"
 Sleep 3s
 Type "q"
 Sleep 500ms
 
 # ============================================
-# SCENE 5: Continue the conversation
+# SCENE 6: Toggle Claude pane
 # ============================================
-# Select the new code to discuss
-Type "G"
-Sleep 300ms
-Type "V"
-Sleep 200ms
-Type "k"
-Sleep 300ms
-
-# Copy for follow-up with Claude
-Type " cc"
-Sleep 2s
-Escape
-Sleep 1s
-
-# ============================================
-# SCENE 6: Clean up the demo edit
-# ============================================
-Type "G"
-Sleep 300ms
-Type "dd"
-Sleep 300ms
-Type ":w"
-Enter
-Sleep 500ms
-
-# ============================================
-# SCENE 7: The integrated experience - claude-edit
-# ============================================
-Type ":q"
-Enter
-Sleep 500ms
-
-Type "# Or use claude-edit for a split-pane experience:"
-Enter
-Sleep 1s
-
-Type "ce lua/config/options.lua"
-Enter
-Sleep 3s
-
-# Show navigation between panes
-Ctrl+h
-Sleep 800ms
-Ctrl+l
-Sleep 800ms
-Ctrl+h
-Sleep 500ms
-
-# Toggle Claude pane
 Type " ct"
-Sleep 1s
+Sleep 1.5s
 Type " ct"
-Sleep 1s
+Sleep 1.5s
 
-# Exit
+# ============================================
+# SCENE 7: Exit
+# ============================================
 Escape
 Escape
 Sleep 300ms
@@ -138,6 +108,6 @@ Type ":qa!"
 Enter
 Sleep 500ms
 
-Type "# ✨ Seamless AI collaboration with dev-nvim"
+Type "# ✨ dev-nvim: AI pair programming made seamless"
 Enter
 Sleep 2s
