@@ -2,9 +2,8 @@
 
 > A modern Neovim configuration optimized for AI-assisted development workflows.
 
-<p align="center">
-  <img src="docs/screenshots/cheatsheet.png" alt="Cheatsheet" width="600">
-</p>
+<!-- Screenshot placeholder - add your own with: <Space>? to show cheatsheet, then screenshot -->
+<!-- <p align="center"><img src="docs/screenshots/cheatsheet.png" alt="Cheatsheet" width="600"></p> -->
 
 ## Why dev-nvim?
 
