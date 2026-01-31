@@ -2,12 +2,9 @@
 
 > A modern Neovim configuration optimized for AI-assisted development workflows.
 
-<!-- Screenshot placeholder - add your own with: <Space>? to show cheatsheet, then screenshot -->
-<!-- <p align="center"><img src="docs/screenshots/cheatsheet.png" alt="Cheatsheet" width="600"></p> -->
-
-## Why dev-nvim?
-
-Built for developers who work with AI coding assistants like Claude Code. Features like **auto-reload on external changes**, **context copying**, and **diff views** make it effortless to collaborate with AI that edits your files directly.
+<p align="center">
+  <img src="docs/screenshots/demo-ai-pairing.gif" alt="AI Pair Programming with dev-nvim" width="800">
+</p>
 
 ## Quick Start
 
@@ -22,77 +19,55 @@ git clone https://github.com/mpaarating/dev-nvim.git ~/.dotfiles/nvim
 ~/.dotfiles/nvim/install.sh
 ```
 
-## Features
+---
 
-### Core Features
+## Why dev-nvim?
 
-- **Fast startup** — Lazy-loaded plugins via [lazy.nvim](https://github.com/folke/lazy.nvim)
-- **LSP out of the box** — TypeScript, Python, Lua, Go, Rust, and more via [mason.nvim](https://github.com/williamboman/mason.nvim)
-- **Fuzzy finding** — [Telescope](https://github.com/nvim-telescope/telescope.nvim) with fzf-native for fast search
-- **Git integration** — [LazyGit](https://github.com/jesseduffield/lazygit) + [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
-- **Modern UI** — [Tokyo Night](https://github.com/folke/tokyonight.nvim) theme, [lualine](https://github.com/nvim-lualine/lualine.nvim), [which-key](https://github.com/folke/which-key.nvim)
-- **Syntax highlighting** — [Treesitter](https://github.com/nvim-treesitter/nvim-treesitter) for accurate highlighting
-- **Built-in cheatsheet** — Press `<Space>?` anytime
+Built for developers who pair program with AI. When Claude Code edits your files, dev-nvim makes it seamless:
 
-### AI Workflow Features
+- **Auto-reload** — Files update instantly when modified externally. No more "file changed on disk" prompts.
+- **Context copying** — `<Space>cc` copies code with file paths and line numbers, formatted for AI.
+- **Diff views** — See exactly what changed with `<Space>cd` (unsaved) or `<Space>cD` (vs git).
+- **Split-pane workflow** — Run Claude Code alongside your editor with the `ce` command.
 
-Designed for seamless collaboration with AI coding assistants:
+---
 
-- **Auto-reload** — Files automatically reload when modified externally (no more "file changed on disk" prompts)
-- **Context copying** — `<Space>cc` copies code with file path and line numbers, formatted for AI consumption
-- **Diff views** — `<Space>cd` shows unsaved changes, `<Space>cD` diffs against git HEAD
-- **Session persistence** — Automatically saves/restores your session per project
+## AI Pair Programming
 
-### Optional Features
+The killer feature. Here's the workflow:
 
-Configured during installation:
+<p align="center">
+  <img src="docs/screenshots/demo-ai-pairing.gif" alt="AI Pair Programming Demo" width="700">
+</p>
 
-- **claude-edit** — Split-pane workflow with Claude Code (requires [Claude CLI](https://docs.anthropic.com/en/docs/claude-code))
-- **now-playing** — Show current track from Spotify/Apple Music (macOS only)
+1. **Share context** — Select code, press `<Space>cc`. It copies with `file:line` format that AI understands.
+2. **AI edits your file** — Claude Code (or any AI) modifies the file directly.
+3. **Auto-reload** — Your buffer updates automatically. No prompts, no manual reload.
+4. **Review changes** — Press `<Space>cD` to diff against git and see exactly what changed.
+5. **Continue** — Copy the new code, ask follow-up questions, iterate.
 
-## Key Bindings
+### Claude Code Integration
 
-Press `<Space>?` for the full cheatsheet. Here are the essentials:
+For the ultimate experience, use the `ce` (claude-edit) command to open a file with Claude in a split pane:
 
-| Key | Action |
-|-----|--------|
-| `<Space>` | Leader key (opens which-key menu) |
-| `<Space>?` | Show cheatsheet |
-| `<Space>e` | Toggle file explorer |
-| `<Space>ff` | Find files |
-| `<Space>/` | Live grep (search in files) |
-| `<Space>gg` | Open LazyGit |
-| `gd` | Go to definition |
-| `gr` | Find references |
-| `K` | Hover documentation |
-| `<Space>ca` | Code actions |
-| `<C-h/j/k/l>` | Navigate between windows |
-| `<C-s>` | Save file |
-
-### AI Workflow Keys
+```bash
+ce src/myfile.ts
+```
 
 | Key | Action |
 |-----|--------|
-| `<Space>cc` | Copy buffer/selection for AI (with file:line format) |
-| `<Space>cd` | Diff against saved version |
-| `<Space>cD` | Diff against git HEAD |
-| `<Space>qs` | Restore session |
-| `<Space>ql` | Restore last session |
+| `<C-h>` | Focus editor (left pane) |
+| `<C-l>` | Focus Claude (right pane) |
+| `<Space>ct` | Toggle Claude pane |
 
-See [docs/keybindings.md](docs/keybindings.md) for the complete reference.
-
-## Claude Code Integration
-
-The `ce` (claude-edit) workflow opens a file in Neovim with Claude Code running in a split pane. This lets you edit code while chatting with Claude — changes sync automatically.
-
-### Setup
+<details>
+<summary><strong>Setup Instructions</strong></summary>
 
 1. Install [Claude CLI](https://docs.anthropic.com/en/docs/claude-code)
 2. Run the installer and enable claude-edit when prompted
-3. Add the `ce` function to your shell profile (`~/.zshrc` or `~/.bashrc`):
+3. Add to your shell profile (`~/.zshrc` or `~/.bashrc`):
 
 ```bash
-# Claude-edit: open file with Claude in split pane
 ce() {
   if [[ -z "$1" ]]; then
     echo "Usage: ce <file>"
@@ -102,32 +77,98 @@ ce() {
 }
 ```
 
-4. Reload your shell: `source ~/.zshrc`
+4. Reload: `source ~/.zshrc`
 
-### Usage
+</details>
 
-```bash
-ce src/myfile.ts
-```
+---
 
-This opens:
-- Left pane: Your file in Neovim
-- Right pane: Claude Code terminal
+## Features
+
+### Discoverability
+
+Never memorize keybindings. Press `<Space>` and which-key shows you everything. Press `<Space>?` for the full cheatsheet.
+
+<p align="center">
+  <img src="docs/screenshots/demo-overview.gif" alt="Which-key and Cheatsheet" width="700">
+</p>
+
+### Navigation
+
+Find files, search code, jump between buffers — all with fuzzy finding.
+
+<p align="center">
+  <img src="docs/screenshots/demo-navigation.gif" alt="Navigation Demo" width="700">
+</p>
 
 | Key | Action |
 |-----|--------|
-| `<C-h>` | Focus editor (left) |
-| `<C-l>` | Focus Claude (right) |
-| `<Space>ct` | Toggle Claude pane |
-| `<Space>ch` | Claude-edit help |
-| `<Esc><Esc>` | Exit terminal mode (to scroll/copy) |
-| `i` | Re-enter terminal mode |
+| `<Space>e` | Toggle file explorer |
+| `<Space>ff` | Find files |
+| `<Space>/` | Live grep (search in files) |
+| `<Space>fb` | Browse open buffers |
 
-Claude sees the file you're editing. Ask it to make changes, and they appear in your buffer.
+### Code Intelligence
+
+Full LSP support out of the box — hover docs, go to definition, find references, code actions.
+
+<p align="center">
+  <img src="docs/screenshots/demo-lsp.gif" alt="LSP Demo" width="700">
+</p>
+
+| Key | Action |
+|-----|--------|
+| `K` | Hover documentation |
+| `gd` | Go to definition |
+| `gr` | Find references |
+| `<Space>ca` | Code actions |
+
+Supported languages: TypeScript, Python, Lua, Go, Rust, and more via [mason.nvim](https://github.com/williamboman/mason.nvim).
+
+### Git Integration
+
+LazyGit built-in. Stage, commit, push, browse history — without leaving Neovim.
+
+<p align="center">
+  <img src="docs/screenshots/demo-git.gif" alt="Git Demo" width="700">
+</p>
+
+| Key | Action |
+|-----|--------|
+| `<Space>gg` | Open LazyGit |
+| `<Space>cd` | Diff unsaved changes |
+| `<Space>cD` | Diff against git HEAD |
+
+---
+
+## All Key Bindings
+
+Press `<Space>?` for the interactive cheatsheet. Here are the essentials:
+
+| Key | Action |
+|-----|--------|
+| `<Space>` | Leader key (opens which-key) |
+| `<Space>?` | Show cheatsheet |
+| `<Space>e` | Toggle file explorer |
+| `<Space>ff` | Find files |
+| `<Space>/` | Live grep |
+| `<Space>gg` | Open LazyGit |
+| `<Space>cc` | Copy for AI (with file:line) |
+| `<Space>cd` | Diff unsaved changes |
+| `<Space>cD` | Diff against git HEAD |
+| `gd` | Go to definition |
+| `gr` | Find references |
+| `K` | Hover documentation |
+| `<C-s>` | Save file |
+| `<C-h/j/k/l>` | Navigate windows |
+
+See [docs/keybindings.md](docs/keybindings.md) for the complete reference.
+
+---
 
 ## Customization
 
-Add personal customizations without modifying core config:
+Add your own config without modifying core files:
 
 ```lua
 -- lua/user/init.lua
@@ -146,40 +187,25 @@ return {
 
 See [docs/customization.md](docs/customization.md) for more.
 
-## Updating
-
-```bash
-~/.dotfiles/nvim/update.sh
-```
-
-Or manually:
-
-```bash
-cd ~/.dotfiles/nvim && git pull
-nvim --headless "+Lazy! sync" +qa
-```
-
-## Uninstalling
-
-```bash
-~/.dotfiles/nvim/uninstall.sh
-```
+---
 
 ## Requirements
 
 - **Neovim** >= 0.11
-- **git**
-- **Node.js** (for LSP servers)
-- **ripgrep** (for telescope live grep)
+- **git**, **Node.js**, **ripgrep**
 - **fd** (optional, faster file finding)
 
-### macOS
+<details>
+<summary><strong>macOS</strong></summary>
 
 ```bash
 brew install neovim node ripgrep fd
 ```
 
-### Ubuntu/Debian
+</details>
+
+<details>
+<summary><strong>Ubuntu/Debian</strong></summary>
 
 ```bash
 # Neovim (use latest release, not apt)
@@ -191,22 +217,32 @@ sudo ln -sf /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim
 sudo apt install nodejs npm ripgrep fd-find
 ```
 
+</details>
+
+---
+
+## Updating
+
+```bash
+~/.dotfiles/nvim/update.sh
+```
+
+## Uninstalling
+
+```bash
+~/.dotfiles/nvim/uninstall.sh
+```
+
+---
+
 ## Structure
 
 ```
 dev-nvim/
 ├── init.lua              # Entry point
-├── lazy-lock.json        # Plugin version locks
 ├── lua/
 │   ├── config/           # Core configuration
-│   │   ├── options.lua   # Neovim options
-│   │   ├── keymaps.lua   # Key bindings
-│   │   ├── autocmds.lua  # Auto commands
-│   │   └── ...
 │   ├── plugins/          # Plugin specifications
-│   │   ├── lsp.lua       # LSP configuration
-│   │   ├── telescope.lua # Fuzzy finder
-│   │   └── ...
 │   └── user/             # Your customizations (gitignored)
 └── docs/                 # Documentation
 ```
