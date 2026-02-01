@@ -86,6 +86,24 @@ ce() {
 
 </details>
 
+<details>
+<summary><strong>Using Other AI CLIs</strong></summary>
+
+The split-pane workflow works with any AI CLI tool. Set `CLAUDE_EDIT_CMD`:
+
+```bash
+# For OpenAI Codex CLI
+CLAUDE_EDIT_CMD="codex" ce myfile.ts
+
+# For Aider
+CLAUDE_EDIT_CMD="aider" ce myfile.ts
+
+# For any other CLI
+CLAUDE_EDIT_CMD="your-cli" ce myfile.ts
+```
+
+</details>
+
 ---
 
 ## Features
