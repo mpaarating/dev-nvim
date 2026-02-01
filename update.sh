@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# dev-nvim updater
+# pair.nvim updater
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -14,7 +14,7 @@ success() { echo -e "${GREEN}✓${NC} $1"; }
 
 echo ""
 echo "╭────────────────────────────────────────╮"
-echo "│          dev-nvim updater              │"
+echo "│          pair.nvim updater              │"
 echo "╰────────────────────────────────────────╯"
 echo ""
 

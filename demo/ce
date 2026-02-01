@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Demo wrapper for claude-edit
+# Uses the local dev-nvim config directory for demo recordings
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+NVIM_CONFIG="$(dirname "$SCRIPT_DIR")"
+
+if [[ -z "$1" ]]; then
+  echo "Usage: ce <file>"
+  exit 1
+fi
+
+CLAUDE_EDIT_CMD="claude" \
+  nvim -u "$NVIM_CONFIG/init.lua" \
+  --cmd "set runtimepath^=$NVIM_CONFIG" \
+  --cmd "lua package.path = '$NVIM_CONFIG/lua/?.lua;$NVIM_CONFIG/lua/?/init.lua;' .. package.path" \
+  "$1" \
+  -c 'lua require("config.claude-edit").setup()'

@@ -21,6 +21,9 @@ vhs demo-git.tape
 echo "Recording demo-ai-pairing..."
 vhs demo-ai-pairing.tape
 
+echo "Recording demo-send-to-claude..."
+vhs demo-send-to-claude.tape
+
 echo ""
 echo "✨ All demos recorded to docs/screenshots/"
 ls -lh ../docs/screenshots/*.gif

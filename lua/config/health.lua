@@ -1,8 +1,8 @@
--- Health check module for dev-nvim
+-- Health check module for pair.nvim
 local M = {}
 
 function M.check()
-  vim.health.start("dev-nvim")
+  vim.health.start("pair.nvim")
 
   -- Neovim version
   local v = vim.version()

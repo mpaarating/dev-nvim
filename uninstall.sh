@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# dev-nvim uninstaller
+# pair.nvim uninstaller
 
 INSTALL_DIR="${HOME}/.dotfiles/nvim"
 CONFIG_DIR="${HOME}/.config/nvim"
@@ -21,7 +21,7 @@ warn() { echo -e "${YELLOW}⚠${NC} $1"; }
 
 echo ""
 echo "╭────────────────────────────────────────╮"
-echo "│        dev-nvim uninstaller            │"
+echo "│        pair.nvim uninstaller            │"
 echo "╰────────────────────────────────────────╯"
 echo ""
 

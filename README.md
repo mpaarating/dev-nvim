@@ -1,29 +1,29 @@
-# dev-nvim
+# pair.nvim
 
 > A modern Neovim configuration optimized for AI-assisted development workflows.
 
 <p align="center">
-  <img src="docs/screenshots/demo-ai-pairing.gif" alt="AI Pair Programming with dev-nvim" width="800">
+  <img src="docs/screenshots/demo-ai-pairing.gif" alt="AI Pair Programming with pair.nvim" width="800">
 </p>
 
 ## Quick Start
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/mpaarating/dev-nvim/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/mpaarating/pair.nvim/main/install.sh | bash
 ```
 
 Or clone and run locally:
 
 ```bash
-git clone https://github.com/mpaarating/dev-nvim.git ~/.dotfiles/nvim
+git clone https://github.com/mpaarating/pair.nvim.git ~/.dotfiles/nvim
 ~/.dotfiles/nvim/install.sh
 ```
 
 ---
 
-## Why dev-nvim?
+## Why pair.nvim?
 
-Built for developers who pair program with AI. When Claude Code edits your files, dev-nvim makes it seamless:
+Built for developers who pair program with AI. When Claude Code edits your files, pair.nvim makes it seamless:
 
 - **Auto-reload** — Files update instantly when modified externally. No more "file changed on disk" prompts.
 - **Context copying** — `<Space>cc` copies code with file paths and line numbers, formatted for AI.
@@ -262,7 +262,7 @@ sudo apt install nodejs npm ripgrep fd-find
 ## Structure
 
 ```
-dev-nvim/
+pair.nvim/
 ├── init.lua              # Entry point
 ├── lua/
 │   ├── config/           # Core configuration
